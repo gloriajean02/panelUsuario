@@ -1,0 +1,51 @@
+<html lang='es'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>panelUsuario</title>
+    <link rel='stylesheet' href='style.css'>
+    <script src='register.js' defer></script>
+</head>
+
+<body>
+    <main>
+        <form name="Login form" id="loginForm" action="/send/" method="post">
+            <h1>Registro</h1>
+            <div class="inputContainer">
+                <label>Nombre de usuario:</label>
+                <input id="userName" type="text" placeholder="Ej. Elias">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Contraseña:</label>
+                <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Teléfono:</label>
+                <input id="userPhone" type="number" placeholder="Ej. 600001002">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Código postal:</label>
+                <input id="userPostalCode" type="number" placeholder="Ej. 06800">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <input id="userLegalAge" type="checkbox" value="true">
+                <label for="userLegalAge">Soy mayor de edad</label>
+                <small></small>
+            </div>
+            <div class="inputContainer hidden">
+                <label>Edad:</label>
+                <input id="userAge" type="number" placeholder="Ej. 29">
+                <small></small>
+            </div>
+            <button id="submitButton" type="submit" class="notAvailable">Crear cuenta</button>
+        </form>
+        <a href="../index.html">¿Ya tienes cuenta? Inicia sesión</a>
+    </main>
+</body>
+
+</html>
