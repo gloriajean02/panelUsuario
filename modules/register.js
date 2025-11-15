@@ -1,3 +1,5 @@
+import { encryptPassword } from '../utils/cryptoPassword.js';
+
 // Guardamos los elementos en variables
 let formElement = document.getElementById("loginForm");
 let inputUserElement = document.getElementById("userName");
@@ -17,8 +19,6 @@ let postalCodeValid = false;
 let legalAge = false;
 let ageValid = false;
 
-let mandatoryFlags = [userValid, passwordValid, phoneValid, postalCodeValid]
-
 // Si el checkbox legalAge está marcado, mostramos la casilla de edad,
 // si lo desmarcamos desaparece de nuevo
 inputLegalAgeElement.addEventListener("change", () => {
@@ -27,8 +27,9 @@ inputLegalAgeElement.addEventListener("change", () => {
         divAgeElement.classList.remove("hidden");
     } else {
         divAgeElement.classList.add("hidden");
+        inputAgeElement.value = "";
     }
-})
+});
 
 // REGEX para validar los campos
 
@@ -45,7 +46,6 @@ inputLegalAgeElement.addEventListener("change", () => {
 //     []    → Conjunto de caracteres. Ej: /[abc]/ coincide con "a" o "b" o "c"
 //     [^]   → Negación de conjunto. Ej: /[^abc]/ coincide con cualquier carácter que NO sea "a", "b" ni "c"     
 
-
 let regexUser = /^.{4,}$/; // "{4,}" → mín 4 caracteres (+ de 3)
 let regexPassword = /^(?=.*[A-Z])(?=.*[a-z]).{8,}$/; // (?=.*[A-Z])  → AL MENOS una letra mayúscula | (?=.*[a-z])  → AL MENOS una letra minúscula
 let regexPhone = /^\d{9}$/; // \d{9}  → Dígito (\d) exactamente 9 veces {9}. 
@@ -59,9 +59,12 @@ const PHONENUMBER_INVALID = "Debe contener exactamente 9 dígitos";
 const POSTALCODE_INVALID = "Debe contener exactamente 5 dígitos";
 const AGE_INVALID = "La edad debe estar entre 18 y 99 años";
 
+let validForm = false;
 
 // Chequea todas las banderas, si son todas true habilita el botón submit
 function checkFullForm() {
+    const mandatoryFlags = [userValid, passwordValid, phoneValid, postalCodeValid];
+
     let validFlags = true;
 
     for (let i = 0; i < mandatoryFlags.length && validFlags; i++) {
@@ -76,13 +79,17 @@ function checkFullForm() {
 
     if (validFlags) {
         submitButtonElement.classList.remove("notAvailable");
+        validForm = true;
     } else {
         submitButtonElement.classList.add("notAvailable");
     }
 }
 
 // ----------------- VALIDAR USUARIO -----------------
-inputUserElement.addEventListener("keyup", validateUser); // Keyup comprueba cada vez que se suelta una tecla
+inputUserElement.addEventListener("keyup", () => { // Keyup comprueba cada vez que se suelta una tecla
+    validateUser();
+    checkFullForm();
+});
 
 function validateUser() {
     userValid = regexUser.test(inputUserElement.value);
@@ -95,31 +102,33 @@ function validateUser() {
         inputUserElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
     }
 
-    checkFullForm();
+    return userValid;
 }
 
 // ----------------- VALIDAR CONTRASEÑA -----------------
-inputPasswordElement.addEventListener("keyup", validatePassword);
+inputPasswordElement.addEventListener("keyup", () => {
+    validatePassword();
+    checkFullForm();
+});
 
 function validatePassword() {
     passwordValid = regexPassword.test(inputPasswordElement.value);
     inputPasswordElement.className = passwordValid ? "success" : "error";
 
-    if (!userValid) {
-        // Obtenemos la etiqueta <small> del div al que pertenece el input
-        // En este caso tendríamos que pasar dos parent node para acceder a small,
-        // por eso lo hago con closest
-        const small = inputPasswordElement.closest('.inputContainer').querySelector('small');
-        small.innerHTML = PASSWORD_INVALID;
-    } else {
-        inputPasswordElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
-    }
-
-    checkFullForm();
+    // Obtenemos la etiqueta <small> del div al que pertenece el input
+    // En este caso tendríamos que pasar dos parent node para acceder a small,
+    // por eso lo hago con closest
+    const small = inputPasswordElement.closest('.inputContainer').querySelector('small');
+    small.innerHTML = passwordValid ? "" : PASSWORD_INVALID;
+    
+    return passwordValid;
 }
 
 // ----------------- VALIDAR TELÉFONO -----------------
-inputPhoneElement.addEventListener("keyup", validatePhone);
+inputPhoneElement.addEventListener("keyup", () => {
+    validatePhone();
+    checkFullForm();
+});
 
 function validatePhone() {
     phoneValid = regexPhone.test(inputPhoneElement.value);
@@ -131,11 +140,14 @@ function validatePhone() {
         inputPhoneElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
     }
 
-    checkFullForm();
+    return phoneValid;
 }
 
 // ----------------- VALIDAR CÓDIGO POSTAL -----------------
-inputPostalCodeElement.addEventListener("keyup", validatePostalCode);
+inputPostalCodeElement.addEventListener("keyup", () => {
+    validatePostalCode();
+    checkFullForm();
+});
 
 function validatePostalCode() {
     postalCodeValid = regexPostalCode.test(inputPostalCodeElement.value);
@@ -147,11 +159,15 @@ function validatePostalCode() {
         inputPostalCodeElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
     }
 
-    checkFullForm();
+    return postalCodeValid;
 }
 
+
 // ----------------- VALIDAR EDAD -----------------
-inputAgeElement.addEventListener("keyup", validateAge);
+inputAgeElement.addEventListener("keyup", () => {
+    validateAge();
+    checkFullForm();
+});
 
 function validateAge() {
     ageValid = regexAge.test(inputAgeElement.value);
@@ -163,7 +179,7 @@ function validateAge() {
         inputAgeElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
     }
 
-    checkFullForm();
+    return ageValid;
 }
 
 // MOSTRAR U OCULTAR CONTRASEÑA
@@ -176,28 +192,47 @@ showPassword.addEventListener("click", () => {
 
     // Cambiamos la imagen
     const img = showPassword.src.includes("invisible.png")
-                ? "../images/visible.png"
-                : "../images/invisible.png";
+        ? "../images/visible.png"
+        : "../images/invisible.png";
     showPassword.src = img;
 })
 
-/*
-Cuando envíamos el formulario (submit), el evento de envío (submit) se activa antes de que
-la solicitud se envíe al servidor. Esto le da la oportunidad de validar los datos del
-formulario. Si los datos del formulario no son válidos, puede dejar de enviar el formulario.
-*/
-formElement.addEventListener('submit', event => {
+
+formElement.addEventListener('submit', async (event) => {
     /*
     Para detener el envío del formulario, llamar al método preventDefault() del objeto de evento
     dentro del controlador de eventos de envío de esta manera:
     */
     event.preventDefault();
 
-    /*
-    Para enviar el formulario tras validarlo, llamariamos al método submit() del objeto del
-    formulario:
-    */
-    formElement.submit();
+    checkFullForm();
+
+    if (validForm) {
+        const username = inputUserElement.value;
+        if (localStorage.getItem(username)) {
+            alert("El nombre de usuario ya existe.");
+            return;
+        }
+
+        const encrypted = await encryptPassword(inputPasswordElement.value);
+
+        const userData = {
+            password: encrypted,
+            phone: inputPhoneElement.value,
+            postalCode: inputPostalCodeElement.value,
+            legalAge: inputLegalAgeElement.checked,
+            age: inputLegalAgeElement.checked ? inputAgeElement.value : null
+        };
+
+        localStorage.setItem(username, JSON.stringify(userData));
+        alert("Registro completado con éxito.");
+        formElement.reset();
+        showScene('inicioSesion');
+
+    } else {
+        alert("Por favor, corrige los errores antes de enviar.");
+    }
+
 
 });
 
