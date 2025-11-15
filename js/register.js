@@ -107,7 +107,10 @@ function validatePassword() {
 
     if (!userValid) {
         // Obtenemos la etiqueta <small> del div al que pertenece el input
-        inputPasswordElement.parentNode.getElementsByTagName("small")[0].innerHTML = PASSWORD_INVALID;
+        // En este caso tendríamos que pasar dos parent node para acceder a small,
+        // por eso lo hago con closest
+        const small = inputPasswordElement.closest('.inputContainer').querySelector('small');
+        small.innerHTML = PASSWORD_INVALID;
     } else {
         inputPasswordElement.parentNode.getElementsByTagName("small")[0].innerHTML = "";
     }
@@ -162,3 +165,39 @@ function validateAge() {
 
     checkFullForm();
 }
+
+// MOSTRAR U OCULTAR CONTRASEÑA
+const showPassword = document.getElementById("showPassword");
+
+showPassword.addEventListener("click", () => {
+    // Cambiamos el type a text si queremos mostrar
+    const type = inputPasswordElement.type === "password" ? "text" : "password";
+    inputPasswordElement.type = type;
+
+    // Cambiamos la imagen
+    const img = showPassword.src.includes("invisible.png")
+                ? "../images/visible.png"
+                : "../images/invisible.png";
+    showPassword.src = img;
+})
+
+/*
+Cuando envíamos el formulario (submit), el evento de envío (submit) se activa antes de que
+la solicitud se envíe al servidor. Esto le da la oportunidad de validar los datos del
+formulario. Si los datos del formulario no son válidos, puede dejar de enviar el formulario.
+*/
+formElement.addEventListener('submit', event => {
+    /*
+    Para detener el envío del formulario, llamar al método preventDefault() del objeto de evento
+    dentro del controlador de eventos de envío de esta manera:
+    */
+    event.preventDefault();
+
+    /*
+    Para enviar el formulario tras validarlo, llamariamos al método submit() del objeto del
+    formulario:
+    */
+    formElement.submit();
+
+});
+

@@ -19,7 +19,10 @@
             </div>
             <div class="inputContainer">
                 <label>Contraseña:</label>
-                <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                <div class="password-wrapper">
+                    <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                </div>
                 <small></small>
             </div>
             <div class="inputContainer">
@@ -32,7 +35,7 @@
                 <input id="userPostalCode" type="number" placeholder="Ej. 06800">
                 <small></small>
             </div>
-            <div class="inputContainer">
+            <div>
                 <input id="userLegalAge" type="checkbox" value="true">
                 <label for="userLegalAge">Soy mayor de edad</label>
                 <small></small>
@@ -43,8 +46,9 @@
                 <small></small>
             </div>
             <button id="submitButton" type="submit" class="notAvailable">Crear cuenta</button>
+            <a href="../index.html">¿Ya tienes cuenta? Inicia sesión</a>
         </form>
-        <a href="../index.html">¿Ya tienes cuenta? Inicia sesión</a>
+        
     </main>
 </body>
 

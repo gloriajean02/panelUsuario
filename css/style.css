@@ -3,9 +3,54 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* outline: red solid 1px; */
+}
+
+#loginForm {
+    width: 300px;
+    padding: 30px;
+    margin: 100 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    background-color: lightskyblue;
 }
 
 .hidden {
     display: none;
 }
 
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    text-align: center;
+}
+
+.inputContainer input {
+    padding: 5px;
+}
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+}
+
+.eye-icon {
+    position:absolute;
+    max-width: 15px;
+    cursor: pointer;
+    right: 10px;
+}
+
+#submitButton {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
