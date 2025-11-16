@@ -30,6 +30,7 @@ inputLegalAgeElement.addEventListener("change", () => {
         divAgeElement.classList.add("inputContainer");
     } else {
         divAgeElement.classList.add("hidden");
+        divAgeElement.classList.remove("inputContainer");
         inputAgeElement.value = "";
     }
 });
