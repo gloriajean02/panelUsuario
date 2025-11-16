@@ -1,8 +1,9 @@
 import { encryptPassword } from '../utils/cryptoPassword.js';
 import { regexUser, regexPassword, regexAge, regexPhone, regexPostalCode } from '../utils/regex.js';
+import { USERNAME_INVALID, PASSWORD_INVALID, AGE_INVALID, PHONENUMBER_INVALID, POSTALCODE_INVALID} from '../utils/messages.js'
 
 // Guardamos los elementos en variables
-let formElement = document.getElementById("loginForm");
+let formElement = document.getElementById("registerForm");
 let inputUserElement = document.getElementById("userName");
 let inputPasswordElement = document.getElementById("userPassword");
 let inputPhoneElement = document.getElementById("userPhone");
@@ -26,18 +27,12 @@ inputLegalAgeElement.addEventListener("change", () => {
     if (inputLegalAgeElement.checked) {
         legalAge = true;
         divAgeElement.classList.remove("hidden");
+        divAgeElement.classList.add("inputContainer");
     } else {
         divAgeElement.classList.add("hidden");
         inputAgeElement.value = "";
     }
 });
-
-// CONSTANTES PARA LOS MENSAJES DE ERROR
-const USERNAME_INVALID = "Mínimo 3 caracteres";
-const PASSWORD_INVALID = "Mínimo 8 caracteres, con al menos 1 mayúscula y 1 minúscula.";
-const PHONENUMBER_INVALID = "Debe contener exactamente 9 dígitos";
-const POSTALCODE_INVALID = "Debe contener exactamente 5 dígitos";
-const AGE_INVALID = "La edad debe estar entre 18 y 99 años";
 
 let validForm = false;
 
@@ -59,9 +54,11 @@ function checkFullForm() {
 
     if (validFlags) {
         submitButtonElement.classList.remove("notAvailable");
+        submitButtonElement.disabled = false; // habilitar el botón
         validForm = true;
     } else {
         submitButtonElement.classList.add("notAvailable");
+        submitButtonElement.disabled = true;
     }
 }
 
@@ -200,14 +197,14 @@ formElement.addEventListener('submit', async (event) => {
             password: encrypted,
             phone: inputPhoneElement.value,
             postalCode: inputPostalCodeElement.value,
-            legalAge: inputLegalAgeElement.checked,
+            legalAge: inputLegalAgeElement.checked ? true : false,
             age: inputLegalAgeElement.checked ? inputAgeElement.value : null
         };
 
         localStorage.setItem(username, JSON.stringify(userData));
         alert("Registro completado con éxito.");
         formElement.reset();
-        showScene('inicioSesion');
+        showScene('login');
 
     } else {
         alert("Por favor, corrige los errores antes de enviar.");

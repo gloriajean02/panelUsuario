@@ -10,7 +10,7 @@
 
 <body>
     <main>
-        <form name="Login form" id="loginForm" action="#" method="post">
+        <form name="Register form" id="registerForm" action="#" method="post">
             <h1>Registro</h1>
             <div class="inputContainer">
                 <label>Nombre de usuario:</label>
@@ -34,18 +34,18 @@
                 <label>Código postal:</label>
                 <input id="userPostalCode" type="number" placeholder="Ej. 06800">
                 <small></small>
-            </div>
+            </div id="divLegalAge">
             <div>
-                <input id="userLegalAge" type="checkbox" value="true">
+                <input id="userLegalAge" type="checkbox">
                 <label for="userLegalAge">Soy mayor de edad</label>
                 <small></small>
             </div>
-            <div id="ageDiv" class="inputContainer hidden">
+            <div id="ageDiv" class="hidden">
                 <label>Edad:</label>
                 <input id="userAge" type="number" placeholder="Ej. 29">
                 <small></small>
             </div>
-            <button id="submitButton" type="submit" class="notAvailable">Crear cuenta</button>
+            <button id="submitButton" type="submit" class="notAvailable" disabled>Crear cuenta</button>
             <a href="../index.html">¿Ya tienes cuenta? Inicia sesión</a>
         </form>
         
