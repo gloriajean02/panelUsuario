@@ -1,6 +1,7 @@
 import { encryptPassword } from '../utils/cryptoPassword.js';
 import { regexUser, regexPassword, regexAge, regexPhone, regexPostalCode } from '../utils/regex.js';
-import { USERNAME_INVALID, PASSWORD_INVALID, AGE_INVALID, PHONENUMBER_INVALID, POSTALCODE_INVALID} from '../utils/messages.js'
+import { USERNAME_INVALID, PASSWORD_INVALID, AGE_INVALID, PHONENUMBER_INVALID, POSTALCODE_INVALID } from '../utils/messages.js'
+import { showScene } from '../utils/scenes.js';
 
 // Guardamos los elementos en variables
 let formElement = document.getElementById("registerForm");
@@ -11,7 +12,8 @@ let inputPostalCodeElement = document.getElementById("userPostalCode");
 let inputLegalAgeElement = document.getElementById("userLegalAge");
 let divAgeElement = document.getElementById("ageDiv");
 let inputAgeElement = document.getElementById("userAge");
-let submitButtonElement = document.getElementById("submitButton");
+let submitButtonElement = document.getElementById("registerButton");
+const showPassword = document.getElementById("registerShowPassword");
 
 // Creamos banderas para saber si los valores son válidos
 let userValid = false;
@@ -20,20 +22,6 @@ let phoneValid = false;
 let postalCodeValid = false;
 let legalAge = false;
 let ageValid = false;
-
-// Si el checkbox legalAge está marcado, mostramos la casilla de edad,
-// si lo desmarcamos desaparece de nuevo
-inputLegalAgeElement.addEventListener("change", () => {
-    if (inputLegalAgeElement.checked) {
-        legalAge = true;
-        divAgeElement.classList.remove("hidden");
-        divAgeElement.classList.add("inputContainer");
-    } else {
-        divAgeElement.classList.add("hidden");
-        divAgeElement.classList.remove("inputContainer");
-        inputAgeElement.value = "";
-    }
-});
 
 let validForm = false;
 
@@ -64,11 +52,6 @@ function checkFullForm() {
 }
 
 // ----------------- VALIDAR USUARIO -----------------
-inputUserElement.addEventListener("keyup", () => { // Keyup comprueba cada vez que se suelta una tecla
-    validateUser();
-    checkFullForm();
-});
-
 function validateUser() {
     userValid = regexUser.test(inputUserElement.value);
     inputUserElement.className = userValid ? "success" : "error";
@@ -84,11 +67,6 @@ function validateUser() {
 }
 
 // ----------------- VALIDAR CONTRASEÑA -----------------
-inputPasswordElement.addEventListener("keyup", () => {
-    validatePassword();
-    checkFullForm();
-});
-
 function validatePassword() {
     passwordValid = regexPassword.test(inputPasswordElement.value);
     inputPasswordElement.className = passwordValid ? "success" : "error";
@@ -98,16 +76,11 @@ function validatePassword() {
     // por eso lo hago con closest
     const small = inputPasswordElement.closest('.inputContainer').querySelector('small');
     small.innerHTML = passwordValid ? "" : PASSWORD_INVALID;
-    
+
     return passwordValid;
 }
 
 // ----------------- VALIDAR TELÉFONO -----------------
-inputPhoneElement.addEventListener("keyup", () => {
-    validatePhone();
-    checkFullForm();
-});
-
 function validatePhone() {
     phoneValid = regexPhone.test(inputPhoneElement.value);
     inputPhoneElement.className = phoneValid ? "success" : "error";
@@ -122,11 +95,6 @@ function validatePhone() {
 }
 
 // ----------------- VALIDAR CÓDIGO POSTAL -----------------
-inputPostalCodeElement.addEventListener("keyup", () => {
-    validatePostalCode();
-    checkFullForm();
-});
-
 function validatePostalCode() {
     postalCodeValid = regexPostalCode.test(inputPostalCodeElement.value);
     inputPostalCodeElement.className = postalCodeValid ? "success" : "error";
@@ -142,11 +110,6 @@ function validatePostalCode() {
 
 
 // ----------------- VALIDAR EDAD -----------------
-inputAgeElement.addEventListener("keyup", () => {
-    validateAge();
-    checkFullForm();
-});
-
 function validateAge() {
     ageValid = regexAge.test(inputAgeElement.value);
     inputAgeElement.className = ageValid ? "success" : "error";
@@ -160,57 +123,90 @@ function validateAge() {
     return ageValid;
 }
 
-// MOSTRAR U OCULTAR CONTRASEÑA
-const showPassword = document.getElementById("showPassword");
-
-showPassword.addEventListener("click", () => {
-    // Cambiamos el type a text si queremos mostrar
-    const type = inputPasswordElement.type === "password" ? "text" : "password";
-    inputPasswordElement.type = type;
-
-    // Cambiamos la imagen
-    const img = showPassword.src.includes("invisible.png")
-        ? "../images/visible.png"
-        : "../images/invisible.png";
-    showPassword.src = img;
-})
 
 
-formElement.addEventListener('submit', async (event) => {
-    /*
-    Para detener el envío del formulario, llamar al método preventDefault() del objeto de evento
-    dentro del controlador de eventos de envío de esta manera:
-    */
-    event.preventDefault();
+export function registerForm() {
+    // MOSTRAR U OCULTAR CONTRASEÑA
+    showPassword.addEventListener("click", () => {
+        // Cambiamos el type a text si queremos mostrar
+        const type = inputPasswordElement.type === "password" ? "text" : "password";
+        inputPasswordElement.type = type;
 
-    checkFullForm();
+        // Cambiamos la imagen
+        const img = showPassword.src.includes("invisible.png")
+            ? "../images/visible.png"
+            : "../images/invisible.png";
+        showPassword.src = img;
+    });
 
-    if (validForm) {
-        const username = inputUserElement.value;
-        if (localStorage.getItem(username)) {
-            alert("El nombre de usuario ya existe.");
-            return;
+    // Si el checkbox legalAge está marcado, mostramos la casilla de edad,
+    // si lo desmarcamos desaparece de nuevo
+    inputLegalAgeElement.addEventListener("change", () => {
+        if (inputLegalAgeElement.checked) {
+            legalAge = true;
+            divAgeElement.classList.remove("hidden");
+            divAgeElement.classList.add("inputContainer");
+        } else {
+            divAgeElement.classList.add("hidden");
+            divAgeElement.classList.remove("inputContainer");
+            inputAgeElement.value = "";
         }
+    });
 
-        const encrypted = await encryptPassword(inputPasswordElement.value);
+    inputUserElement.addEventListener("keyup", () => {
+        validateUser();
+        checkFullForm();
+    });
+    inputPasswordElement.addEventListener("keyup", () => {
+        validatePassword();
+        checkFullForm();
+    });
+    inputPhoneElement.addEventListener("keyup", () => {
+        validatePhone();
+        checkFullForm();
+    });
+    inputPostalCodeElement.addEventListener("keyup", () => {
+        validatePostalCode();
+        checkFullForm();
+    });
+    inputLegalAgeElement.addEventListener("change", () => {
+        inputAgeElement.addEventListener("keyup", validateAge);
+        checkFullForm();
+    });
 
-        const userData = {
-            password: encrypted,
-            phone: inputPhoneElement.value,
-            postalCode: inputPostalCodeElement.value,
-            legalAge: inputLegalAgeElement.checked ? true : false,
-            age: inputLegalAgeElement.checked ? inputAgeElement.value : null
-        };
+    
 
-        localStorage.setItem(username, JSON.stringify(userData));
-        alert("Registro completado con éxito.");
-        formElement.reset();
-        showScene('login');
+    formElement.addEventListener('submit', async (event) => {
+        /*
+        Para detener el envío del formulario, llamar al método preventDefault() del objeto de evento
+        dentro del controlador de eventos de envío de esta manera:
+        */
+        event.preventDefault();
 
-    } else {
-        alert("Por favor, corrige los errores antes de enviar.");
-    }
+        if (validForm) {
+            const username = inputUserElement.value;
+            if (localStorage.getItem(username)) {
+                alert("El nombre de usuario ya existe.");
+                return;
+            }
 
+            const encrypted = await encryptPassword(inputPasswordElement.value);
 
-});
+            const userData = {
+                password: encrypted,
+                phone: inputPhoneElement.value,
+                postalCode: inputPostalCodeElement.value,
+                legalAge: inputLegalAgeElement.checked ? true : false,
+                age: inputLegalAgeElement.checked ? inputAgeElement.value : null
+            };
 
+            localStorage.setItem(username, JSON.stringify(userData));
+            alert("Registro completado con éxito.");
+            formElement.reset();
+            showScene('loginForm');
+
+        } else {
+            alert("Por favor, corrige los errores antes de enviar.");
+        }
+    });
+}

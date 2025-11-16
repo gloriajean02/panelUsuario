@@ -10,7 +10,7 @@
 
 <body>
     <main>
-        <form id="registerForm" class="form" action="#" method="post">
+        <form id="registerForm" class="scene" action="#" method="post">
             <h1>Registro</h1>
             <div class="inputContainer">
                 <label>Nombre de usuario:</label>
@@ -21,7 +21,7 @@
                 <label>Contraseña:</label>
                 <div class="password-wrapper">
                     <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
-                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                    <img src="../images/visible.png" id="registerShowPassword" class="eye-icon">                    
                 </div>
                 <small></small>
             </div>
@@ -45,29 +45,29 @@
                 <input id="userAge" type="number" placeholder="Ej. 29">
                 <small></small>
             </div>
-            <button id="submitButton" type="submit" class="notAvailable" disabled>Crear cuenta</button>
+            <button id="registerButton" class="submitButton notAvailable" type="submit" disabled>Crear cuenta</button>
             <a href="#" id="login">¿Ya tienes cuenta? Inicia sesión</a>
         </form>
 
-        <form id="loginForm" class="form" action="#" method="post">
+        <form id="loginForm" class="scene" action="#" method="post">
             <h1>Iniciar sesión</h1>
             <div class="inputContainer">
                 <label>Nombre de usuario:</label>
-                <input id="userName" type="text" placeholder="Ej. Elias">
+                <input id="userLogin" type="text" placeholder="Ej. Elias">
             </div>
             <div class="inputContainer">
                 <label>Contraseña:</label>
                 <div class="password-wrapper">
-                    <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
-                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                    <input id="loginPassword" type="password" placeholder="Ej. Abcd1234">
+                    <img src="../images/visible.png" id="loginShowPassword" class="eye-icon">                    
                 </div>
             </div>
-            <small></small>
-            <button id="submitButton" type="submit">Entrar</button>
+            <small id="loginFeedback"></small>
+            <button id="loginButton" class="submitButton" type="submit">Entrar</button>
             <a href="#" id="register">Registrarse</a>
         </form>
 
-        <div id="userPanel" class="form">
+        <div id="userPanel" class="scene">
             <h1>Panel de usuario</h1>
             <p id="welcome"></p>
             <div>
