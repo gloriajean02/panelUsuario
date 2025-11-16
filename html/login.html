@@ -1,0 +1,33 @@
+<html lang='es'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>panelUsuario</title>
+    <link rel='stylesheet' href='../css/style.css'>
+    <script type="module" src='../modules/login.js' defer></script>
+</head>
+
+<body>
+    <main>
+        <form name="Login form" id="loginForm" class="form" action="#" method="post">
+            <h1>Iniciar sesión</h1>
+            <div class="inputContainer">
+                <label>Nombre de usuario:</label>
+                <input id="userName" type="text" placeholder="Ej. Elias">
+            </div>
+            <div class="inputContainer">
+                <label>Contraseña:</label>
+                <div class="password-wrapper">
+                    <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                </div>
+            </div>
+            <small></small>
+            <button id="submitButton" type="submit">Entrar</button>
+            <a href="register.html">Registrarse</a>
+        </form>
+        
+    </main>
+</body>
+</html>

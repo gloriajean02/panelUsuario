@@ -11,7 +11,7 @@ function bufferToHex(buffer) {
 
 // Función que genera un hash SHA-256 de un texto
 // Sirve para transformar la contraseña en un código seguro que no se pueda leer directamente
-async function hashText(text) {
+export async function hashText(text) {
     const encoder = new TextEncoder(); // Prepara el texto para que pueda ser procesado por el hash
     const data = encoder.encode(text); // Convierte el texto en bytes
 

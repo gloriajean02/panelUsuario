@@ -12,7 +12,7 @@ body {
     margin: 0;
 }
 
-#registerForm {
+.form {
     width: 380px;
     margin: 100px auto;
     border-radius: 10px;
