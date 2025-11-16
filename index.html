@@ -5,7 +5,78 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>panelUsuario</title>
     <link rel='stylesheet' href='css/style.css'>
-    <script src='js/login.js' defer></script>
+    <script type="module" src='modules/script.js' defer></script>
 </head>
+
+<body>
+    <main>
+        <form id="registerForm" class="form" action="#" method="post">
+            <h1>Registro</h1>
+            <div class="inputContainer">
+                <label>Nombre de usuario:</label>
+                <input id="userName" type="text" placeholder="Ej. Elias">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Contraseña:</label>
+                <div class="password-wrapper">
+                    <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                </div>
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Teléfono:</label>
+                <input id="userPhone" type="number" placeholder="Ej. 600001002">
+                <small></small>
+            </div>
+            <div class="inputContainer">
+                <label>Código postal:</label>
+                <input id="userPostalCode" type="number" placeholder="Ej. 06800">
+                <small></small>
+            </div id="divLegalAge">
+            <div>
+                <input id="userLegalAge" type="checkbox">
+                <label for="userLegalAge">Soy mayor de edad</label>
+                <small></small>
+            </div>
+            <div id="ageDiv" class="hidden">
+                <label>Edad:</label>
+                <input id="userAge" type="number" placeholder="Ej. 29">
+                <small></small>
+            </div>
+            <button id="submitButton" type="submit" class="notAvailable" disabled>Crear cuenta</button>
+            <a href="#" id="login">¿Ya tienes cuenta? Inicia sesión</a>
+        </form>
+
+        <form id="loginForm" class="form" action="#" method="post">
+            <h1>Iniciar sesión</h1>
+            <div class="inputContainer">
+                <label>Nombre de usuario:</label>
+                <input id="userName" type="text" placeholder="Ej. Elias">
+            </div>
+            <div class="inputContainer">
+                <label>Contraseña:</label>
+                <div class="password-wrapper">
+                    <input id="userPassword" type="password" placeholder="Ej. Abcd1234">
+                    <img src="../images/visible.png" id="showPassword" class="eye-icon">                    
+                </div>
+            </div>
+            <small></small>
+            <button id="submitButton" type="submit">Entrar</button>
+            <a href="#" id="register">Registrarse</a>
+        </form>
+
+        <div id="userPanel" class="form">
+            <h1>Panel de usuario</h1>
+            <p id="welcome"></p>
+            <div>
+                <button id="changeTheme">Cambiar tema</button>
+                <button id="logout">Cerrar sesión</button>
+            </div>
+        </div>
+        
+    </main>
+</body>
 
 </html>
