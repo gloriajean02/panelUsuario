@@ -14,7 +14,7 @@ body {
 
 .scene {
     width: 380px;
-    margin: 100px auto;
+    margin: 150px auto;
     border-radius: 10px;
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
     padding: 30px;
@@ -121,12 +121,15 @@ footer {
 #bannerCookies {
     background-color: white;
     width: 100%;
-    height: 100%;
     padding: 20px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
 }
 
 #bannerCookies p {

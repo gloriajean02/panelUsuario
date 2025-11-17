@@ -41,6 +41,7 @@ function checkFullForm() {
         validFlags = false;
     }
 
+
     if (validFlags) {
         submitButtonElement.classList.remove("notAvailable");
         submitButtonElement.disabled = false; // habilitar el botón
@@ -147,11 +148,15 @@ export function registerForm() {
             divAgeElement.classList.remove("hidden");
             divAgeElement.classList.add("inputContainer");
         } else {
+            legalAge = false;
             divAgeElement.classList.add("hidden");
             divAgeElement.classList.remove("inputContainer");
             inputAgeElement.value = "";
+            ageValid = false; // resetear bandera de edad
         }
+        checkFullForm(); // para que si no se rellena la edad se deshabilite
     });
+
 
     inputUserElement.addEventListener("keyup", () => {
         validateUser();
@@ -169,12 +174,12 @@ export function registerForm() {
         validatePostalCode();
         checkFullForm();
     });
-    inputLegalAgeElement.addEventListener("change", () => {
-        inputAgeElement.addEventListener("keyup", validateAge);
+    inputAgeElement.addEventListener("keyup", () => {
+        validateAge();
         checkFullForm();
     });
 
-    
+
 
     formElement.addEventListener('submit', async (event) => {
         /*
