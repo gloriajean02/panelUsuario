@@ -4,8 +4,11 @@ import { registerForm } from "./register.js";
 import { loginForm, resetLoginForm } from "./login.js";
 import { showUserPanel } from "./userPanel.js";
 import { showBannerCookies } from './bannerCookies.js';
+import { getTheme, setTheme } from './theme.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    getTheme();
 
     showBannerCookies();
 
@@ -28,5 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         resetLoginForm();
         showScene('loginForm');
+    });
+
+    document.getElementById('changeTheme').addEventListener('click', (e) => {
+        e.preventDefault();
+        setTheme();
     });
 });

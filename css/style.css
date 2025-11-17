@@ -59,6 +59,11 @@ label {
     padding: 5px;
 }
 
+.inputContainer input:focus {
+    border-color: #6c70e0;
+    outline: none;
+}
+
 .password-wrapper {
     position: relative;
     display: flex;
@@ -144,4 +149,94 @@ footer {
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* ===== MODO OSCURO ===== */
+.darkTheme {
+    background: #1e1e2f;
+    color: #eee;
+}
+
+.darkTheme .scene {
+    background: #2a2a3d;
+}
+
+.darkTheme h1 {
+    color: #a8b0ff;
+}
+
+.darkTheme label {
+    color: #a8b0ff;
+}
+
+.darkTheme .inputContainer input {
+    background-color: #3a3a4f;
+    color: #eee;
+    border: 1px solid #555;
+}
+
+.darkTheme ::placeholder {
+    color: #aaa;
+    opacity: 0.7;
+}
+
+.darkTheme .password-wrapper input {
+    background-color: #3a3a4f;
+    color: #eee;
+    border: 1px solid #555;
+}
+
+.darkTheme .eye-icon {
+    filter: invert(1);
+}
+
+.darkTheme small {
+    color: #ff6b5f;
+}
+
+.darkTheme button {
+    background: #6c70e0;
+    color: #fff;
+}
+
+.darkTheme button:hover:not(.notAvailable) {
+    background: #7a80f0;
+}
+
+.darkTheme .notAvailable {
+    background: #4a4d6a;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.darkTheme a {
+    color: #8fa1ff;
+    transition: color 0.2s;
+}
+
+.darkTheme a:hover {
+    color: #a8b0ff;
+}
+
+.darkTheme footer {
+    background: #1e1e2f;
+}
+
+.darkTheme #bannerCookies {
+    background-color: #2a2a3d;
+    color: #eee;
+    border-top: 1px solid #555;
+}
+
+.darkTheme #bannerCookies p {
+    color: #eee;
+}
+
+.darkTheme #allowCookies {
+    background-color: #6c70e0;
+    color: #fff;
+}
+
+.darkTheme #allowCookies:hover {
+    background-color: #7a80f0;
 }
