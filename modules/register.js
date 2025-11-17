@@ -158,23 +158,23 @@ export function registerForm() {
     });
 
 
-    inputUserElement.addEventListener("keyup", () => {
+    inputUserElement.addEventListener("blur", () => {
         validateUser();
         checkFullForm();
     });
-    inputPasswordElement.addEventListener("keyup", () => {
+    inputPasswordElement.addEventListener("blur", () => {
         validatePassword();
         checkFullForm();
     });
-    inputPhoneElement.addEventListener("keyup", () => {
+    inputPhoneElement.addEventListener("blur", () => {
         validatePhone();
         checkFullForm();
     });
-    inputPostalCodeElement.addEventListener("keyup", () => {
+    inputPostalCodeElement.addEventListener("blur", () => {
         validatePostalCode();
         checkFullForm();
     });
-    inputAgeElement.addEventListener("keyup", () => {
+    inputAgeElement.addEventListener("blur", () => {
         validateAge();
         checkFullForm();
     });
