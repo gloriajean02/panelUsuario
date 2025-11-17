@@ -135,8 +135,8 @@ export function registerForm() {
 
         // Cambiamos la imagen
         const img = showPassword.src.includes("invisible.png")
-            ? "../images/visible.png"
-            : "../images/invisible.png";
+            ? "./images/visible.png"
+            : "./images/invisible.png";
         showPassword.src = img;
     });
 
