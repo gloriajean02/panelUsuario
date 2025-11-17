@@ -13,7 +13,7 @@
 //     []    → Conjunto de caracteres. Ej: /[abc]/ coincide con "a" o "b" o "c"
 //     [^]   → Negación de conjunto. Ej: /[^abc]/ coincide con cualquier carácter que NO sea "a", "b" ni "c"     
 
-export const regexUser = /^\S{4,}$/; // \S → cualquier carácter que NO sea espacio | "{4,}" → mín 4 caracteres (+ de 3)
+export const regexUser = /^\S{3,}$/; // \S → cualquier carácter que NO sea espacio | "{3,}" → mín 3 caracteres
 export const regexPassword = /^(?=.*[A-Z])(?=.*[a-z]).{8,}$/; // (?=.*[A-Z])  → AL MENOS una letra mayúscula | (?=.*[a-z])  → AL MENOS una letra minúscula
 export const regexPhone = /^\d{9}$/; // \d{9}  → Dígito (\d) exactamente 9 veces {9}. 
 export const regexPostalCode = /^\d{5}$/;

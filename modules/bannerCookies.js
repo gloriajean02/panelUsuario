@@ -6,6 +6,8 @@ export function showBannerCookies() {
 
     if (!cookieExists('cookiesAllowed')) {
         banner.classList.remove('hidden');
+    } else {
+        banner.classList.add('hidden');
     }
 
     document.getElementById('allowCookies').addEventListener('click', () => {
