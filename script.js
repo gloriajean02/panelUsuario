@@ -1,10 +1,10 @@
-import { showScene } from '../utils/scenes.js';
-import { cookieExists } from '../utils/cookies.js';
-import { registerForm } from "./register.js";
-import { loginForm, resetLoginForm } from "./login.js";
-import { showUserPanel } from "./userPanel.js";
-import { showBannerCookies } from './bannerCookies.js';
-import { getTheme, setTheme } from './theme.js';
+import { showScene } from './utils/scenes.js';
+import { cookieExists } from './utils/cookies.js';
+import { registerForm } from "./modules/register.js";
+import { loginForm, resetLoginForm } from "./modules/login.js";
+import { showUserPanel } from "./modules/userPanel.js";
+import { showBannerCookies } from './modules/bannerCookies.js';
+import { getTheme, setTheme } from './modules/theme.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
